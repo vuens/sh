@@ -12,11 +12,11 @@
 其中`dg2fa.sh`在Debian系统上运行经过测试，理论Ubuntu系统也没问题。
 使用方法：
 ```
-wget -O - https://github.com/gitcomy/bash/raw/main/dg2fa.sh | bash
+curl -sSL https://github.com/gitcomy/bash/raw/main/dg2fa.sh > dg2fa.sh; bash dg2fa.sh
 ```
 ### 1.2 gg2fa.sh
 另外`gg2fa.sh`脚本理论兼容debian、ubuntu、centos，未经测试。
 使用方法：
 ```
-wget -O - https://github.com/gitcomy/bash/raw/main/gg2fa.sh | bash
+curl -sSL https://github.com/gitcomy/bash/raw/main/gg2fa.sh > dg2fa.sh; bash dg2fa.sh
 ```
