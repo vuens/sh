@@ -7,6 +7,7 @@
 - 安装配置Google Authenticator
 - 修改ssh相关配置
 - 卸载功能
+
 ###1.1 dg2fa.sh
 其中`dg2fa.sh`在Debian系统上运行经过测试，理论Ubuntu系统也没问题。
 使用方法：
