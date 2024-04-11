@@ -13,7 +13,7 @@ fi
 # 提示用户选择
 echo "请选择操作："
 echo "1. 安装并配置 Google Authenticator"
-echo "2. 卸载并恢复 Google Authenticator"
+echo "2. 卸载Google Authenticator并恢复ssh相关配置"
 echo "3. 退出脚本"
 read -p "请输入选项 (1、2 或 3): " option
 
