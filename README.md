@@ -1,4 +1,5 @@
 # BASH 我的脚本仓库
+一键换源：https://linuxmirrors.cn/use/
 ## 1. gg2fa：linux系统ssh登录添加谷歌双重验证
 包含`dg2fa.sh`和`gg2fa.sh`两个脚本。
 详细内容：
