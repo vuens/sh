@@ -1,8 +1,10 @@
 # BASH 我的脚本仓库
-[一键换源](https://linuxmirrors.cn/use/){:target="_blank"}
+[一键换源](https://linuxmirrors.cn/use/)
 
 ## 1. gg2fa：linux系统ssh登录添加谷歌双重验证
-[特别鸣谢](https://www.infvie.com/ops-notes/google-authenticator-sshd.html){:target="_blank"}
+[特别鸣谢](https://www.infvie.com/ops-notes/google-authenticator-sshd.html)
+特别鸣谢：[特别鸣谢](https://www.infvie.com/ops-notes/google-authenticator-sshd.html){:target="_blank"}
+
 包含`dg2fa.sh`和`gg2fa.sh`两个脚本。
 详细内容：
 - 更改主机名，方便记忆
