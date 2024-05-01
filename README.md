@@ -27,3 +27,8 @@ curl -sSL https://github.com/vuens/sh/raw/main/dg2fa.sh > dg2fa.sh; bash dg2fa.s
 ```
 curl -sSL https://github.com/vuens/sh/raw/main/gg2fa.sh > gg2fa.sh; bash gg2fa.sh
 ```
+## 2. bt512：小内存VPS宝塔面板安装mysql5.6+
+使用方法：
+```
+curl -sSL https://github.com/vuens/sh/raw/main/bt512.sh > bt512.sh; bash bt512.sh
+```
