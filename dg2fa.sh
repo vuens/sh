@@ -19,18 +19,51 @@ case $option in
         # 更新软件包列表并安装Google Authenticator和ntpdate
         echo "更新软件包列表并安装Google Authenticator和ntpdate..."
         apt update && apt install -y libpam-google-authenticator ntpdate
+
         # 修改时区为上海并同步时间
         read -p "是否要修改时区并同步时间？(y/n，默认为y): " response
         if [ "$response" = "y" ] || [ -z "$response" ]; then
-        echo "修改时区为上海并同步时间..."
-        ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-        ntpdate time.nist.gov
-        echo "时区和时间同步完成。"
+            echo "修改时区为上海并同步时间..."
+            ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+            ntpdate time.nist.gov
+            echo "时区和时间同步完成。"
+
+            # ---- 自动时间同步功能增强开始 ----
+            echo -e "\n[+] 正在配置多时间服务器自动同步..."
+
+            # 定义多个时间服务器
+            NTP_SERVERS=(
+              "ntp.aliyun.com"
+              "ntp1.aliyun.com"
+              "ntp.tencent.com"
+              "time.windows.com"
+              "cn.pool.ntp.org"
+            )
+
+            echo "[*] 立即同步一次系统时间..."
+            for server in "${NTP_SERVERS[@]}"; do
+              echo "  -> 正在尝试服务器：$server"
+              if ntpdate -u "$server" >/dev/null 2>&1; then
+                hwclock -w
+                echo "  ✓ 同步成功：$server"
+                break
+              else
+                echo "  ✗ 同步失败：$server"
+              fi
+            done
+
+            echo "[*] 添加 crontab 定时任务：每小时同步一次时间..."
+            (crontab -l 2>/dev/null | grep -v 'ntpdate' ; echo "0 * * * * (ntpdate -u ntp.aliyun.com || ntpdate -u ntp1.aliyun.com || ntpdate -u ntp.tencent.com || ntpdate -u time.windows.com || ntpdate -u cn.pool.ntp.org) > /dev/null 2>&1 && hwclock -w") | crontab -
+
+            echo "[+] 多服务器时间同步配置完成"
+            # ---- 自动时间同步功能增强结束 ----
         else
-        echo "跳过修改时区和同步时间。"
+            echo "跳过修改时区和同步时间。"
         fi
+
         # 安装前说明
         echo -e "Google Authenticator安装完成，下面即将配置验证器。\n配置验证器时会有多次询问，请详细查看：\n1.是否启用基于时间的一次性密码验证，建议选择 y，然后使用谷歌验证器扫描二维码。\n2.是否在用户目录下更新验证文件，建议选择 y\n3.是否禁止一个口令多次使用，防止中间人攻击，建议选择 y\n4.【最长的一段】是否延长口令验证时间，避免客户端与服务器时间误差，除非时间同步很差，否则建议选择 n\n5.是否限制尝试次数，防止暴力攻击，建议选择 y"
+
         # 配置Google Authenticator
         echo "配置Google Authenticator..."
         google-authenticator
@@ -78,6 +111,6 @@ case $option in
         echo "退出脚本。"
         ;;
     *)
-        echo "无效选项。"
+        echo "无效的选项，退出脚本。"
         ;;
 esac
