@@ -19,13 +19,13 @@
 其中`dg2fa.sh`在Debian系统上运行经过测试，理论Ubuntu系统也没问题。
 使用方法：
 ```
-curl -sSL https://github.com/vuens/sh/raw/main/dg2fa.sh > dg2fa.sh; bash dg2fa.sh
+curl -sSL https://raw.githubusercontent.com/vuens/sh/main/dg2fa.sh -o dg2fa.sh; chmod +x dg2fa.sh; ./dg2fa.sh
 ```
 ### 1.2 gg2fa.sh
 另外`gg2fa.sh`脚本理论兼容debian、ubuntu、centos，未经测试。
 使用方法：
 ```
-curl -sSL https://github.com/vuens/sh/raw/main/gg2fa.sh > gg2fa.sh; bash gg2fa.sh
+curl -sSL https://raw.githubusercontent.com/vuens/sh/main/gg2fa.sh -o gg2fa.sh; chmod +x gg2fa.sh; ./gg2fa.sh
 ```
 ## 2. bt512：小内存VPS宝塔面板安装mysql5.6+
 使用方法：
