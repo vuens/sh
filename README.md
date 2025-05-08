@@ -22,7 +22,7 @@
 curl -sSL https://raw.githubusercontent.com/vuens/sh/main/dg2fa.sh -o dg2fa.sh; chmod +x dg2fa.sh; ./dg2fa.sh
 ```
 ### 1.2 gg2fa.sh
-另外`gg2fa.sh`脚本理论兼容debian、ubuntu、centos，未经测试。
+另外`gg2fa.sh`脚本理论兼容debian、ubuntu、centos等大部分常用 Linux 发行版，未经测试。
 使用方法：
 ```
 curl -sSL https://raw.githubusercontent.com/vuens/sh/main/gg2fa.sh -o gg2fa.sh; chmod +x gg2fa.sh; ./gg2fa.sh
