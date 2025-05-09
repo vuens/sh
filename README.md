@@ -30,9 +30,10 @@ curl -sSL https://raw.githubusercontent.com/vuens/sh/main/gg2fa.sh -o gg2fa.sh; 
 ## 2. bt512：小内存VPS宝塔面板安装mysql5.6+
 使用方法：
 ```
-curl -sSL https://github.com/vuens/sh/raw/main/bt512.sh > bt512.sh; bash bt512.sh
+curl -sSL https://raw.githubusercontent.com/vuens/sh/main/bt512.sh -o bt512.sh; chmod +x bt512.sh; bash bt512.sh
 ```
 ## 3.gitssh.sh<br/>
+
 ### 脚本功能#
 - 设置 Git 用户名和邮箱<br/>
 脚本会提示用户输入 Git 用户名和邮箱,并将其设置为全局配置。
@@ -51,3 +52,7 @@ curl -sSL https://github.com/vuens/sh/raw/main/bt512.sh > bt512.sh; bash bt512.s
 
 - 测试 SSH 连接<br/>
 最后,脚本会尝试通过 SSH 连接到 GitHub,验证配置是否成功。如果连接成功,将输出相应的提示信息。
+### 使用方法：
+```
+curl -sSL https://raw.githubusercontent.com/vuens/sh/main/gitssh -o gitssh; chmod +x gitssh; ./gitssh
+```
