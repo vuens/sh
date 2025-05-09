@@ -32,22 +32,22 @@ curl -sSL https://raw.githubusercontent.com/vuens/sh/main/gg2fa.sh -o gg2fa.sh; 
 ```
 curl -sSL https://github.com/vuens/sh/raw/main/bt512.sh > bt512.sh; bash bt512.sh
 ```
-##gitssh.sh
-###脚本功能#
-- 设置 Git 用户名和邮箱
+###gitssh.sh
+####脚本功能#
+- 设置 Git 用户名和邮箱<br/>
 脚本会提示用户输入 Git 用户名和邮箱,并将其设置为全局配置。
 
-- 生成新的 SSH 密钥
+- 生成新的 SSH 密钥<br/>
 脚本会自动生成新的 SSH 密钥对(私钥和公钥),用于与 GitHub 建立安全连接。在生成过程中,用户可以持续按回车键使用默认设置。
 
-- 将 SSH 私钥添加到 ssh-agent
+- 将 SSH 私钥添加到 ssh-agent<br/>
 脚本会自动将生成的 SSH 私钥添加到 ssh-agent 中,以便在后续推送或拉取代码时无需每次手动输入密钥。
 
-- 将 SSH 公钥复制到剪贴板(可选)
+- 将 SSH 公钥复制到剪贴板(可选)<br/>
 如果用户的系统安装了 xclip 工具,脚本会尝试自动将 SSH 公钥内容复制到剪贴板,方便用户在 GitHub 上配置。如果系统未安装 xclip,脚本会输出公钥内容,提示用户手动复制。
 
-- 提供 GitHub 配置指引
+- 提供 GitHub 配置指引<br/>
 脚本会给出在 GitHub 上添加 SSH 公钥的详细步骤,引导用户完成配置。
 
-- 测试 SSH 连接
+- 测试 SSH 连接<br/>
 最后,脚本会尝试通过 SSH 连接到 GitHub,验证配置是否成功。如果连接成功,将输出相应的提示信息。
