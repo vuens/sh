@@ -33,7 +33,7 @@ curl -sSL https://raw.githubusercontent.com/vuens/sh/main/gg2fa.sh -o gg2fa.sh; 
 curl -sSL https://raw.githubusercontent.com/vuens/sh/main/bt512.sh -o bt512.sh; chmod +x bt512.sh; bash bt512.sh
 ```
 ## 3.gitssh.sh<br/>
-
+[来源](https://www.cnblogs.com/gupingan/p/18208386)
 ### 脚本功能#
 - 设置 Git 用户名和邮箱<br/>
 脚本会提示用户输入 Git 用户名和邮箱,并将其设置为全局配置。
