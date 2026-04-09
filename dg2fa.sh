@@ -16,49 +16,54 @@ case $option in
         sed -i "1i 127.0.0.1       $new_hostname" /etc/hosts
         echo "主机名修改完成。"
 
-        # 更新软件包列表并安装Google Authenticator和ntpdate
-        echo "更新软件包列表并安装Google Authenticator和ntpdate..."
-        apt update && apt install -y libpam-google-authenticator ntpdate
+        # 更新软件包列表并安装Google Authenticator和时间同步相关包
+        echo "更新软件包列表并安装Google Authenticator和时间同步组件..."
+        apt update && apt install -y libpam-google-authenticator systemd-timesyncd
 
-        # 修改时区为上海并同步时间
-        read -p "是否要修改时区并同步时间？(y/n，默认为y): " response
+        # 修改时区为上海并配置时间同步（完全按文章方法）
+        read -p "是否要修改时区并配置时间同步？(y/n，默认为y): " response
         if [ "$response" = "y" ] || [ -z "$response" ]; then
-            echo "修改时区为上海并同步时间..."
+            echo "修改时区为上海..."
             ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-            ntpdate time.nist.gov
-            echo "时区和时间同步完成。"
+            echo "时区修改完成。"
 
-            # ---- 自动时间同步功能增强开始 ----
-            echo -e "\n[+] 正在配置多时间服务器自动同步..."
+            # ---- 按文章配置systemd-timesyncd时间同步开始 ----
+            echo -e "\n[+] 正在按Debian 12标准配置systemd-timesyncd时间同步..."
+            
+            # 1. 启用并启动systemd-timesyncd服务（文章步骤2）
+            systemctl enable systemd-timesyncd
+            systemctl start systemd-timesyncd
+            echo "[*] systemd-timesyncd服务已启用并启动"
 
-            # 定义多个时间服务器
-            NTP_SERVERS=(
-              "ntp.aliyun.com"
-              "ntp1.aliyun.com"
-              "ntp.tencent.com"
-              "time.windows.com"
-              "cn.pool.ntp.org"
-            )
+            # 2. 备份原有timesyncd配置（新增，防止配置丢失）
+            cp /etc/systemd/timesyncd.conf /etc/systemd/timesyncd.conf.bak
+            echo "[*] 已备份原有timesyncd配置至 /etc/systemd/timesyncd.conf.bak"
 
-            echo "[*] 立即同步一次系统时间..."
-            for server in "${NTP_SERVERS[@]}"; do
-              echo "  -> 正在尝试服务器：$server"
-              if ntpdate -u "$server" >/dev/null 2>&1; then
-                hwclock -w
-                echo "  ✓ 同步成功：$server"
-                break
-              else
-                echo "  ✗ 同步失败：$server"
-              fi
-            done
+            # 3. 配置NTP服务器（文章步骤3，替换为国内优质服务器）
+            cat > /etc/systemd/timesyncd.conf << EOF
+[Time]
+NTP=ntp.aliyun.com ntp1.aliyun.com ntp.tencent.com cn.pool.ntp.org
+FallbackNTP=time.windows.com time.apple.com
+EOF
+            echo "[*] 已写入国内NTP服务器配置"
 
-            echo "[*] 添加 crontab 定时任务：每小时同步一次时间..."
-            (crontab -l 2>/dev/null | grep -v 'ntpdate' ; echo "0 * * * * (ntpdate -u ntp.aliyun.com || ntpdate -u ntp1.aliyun.com || ntpdate -u ntp.tencent.com || ntpdate -u time.windows.com || ntpdate -u cn.pool.ntp.org) > /dev/null 2>&1 && hwclock -w") | crontab -
+            # 4. 重启NTP服务应用更改（文章步骤4）
+            systemctl restart systemd-timesyncd
+            echo "[*] systemd-timesyncd服务已重启"
 
-            echo "[+] 多服务器时间同步配置完成"
-            # ---- 自动时间同步功能增强结束 ----
+            # 5. 检查时间同步状态（文章步骤5）
+            echo -e "\n[*] 时间同步状态检查："
+            timedatectl status
+
+            # 6. 设置RTC硬件时钟使用UTC（文章步骤6）
+            timedatectl set-local-rtc 0
+            echo "[*] 已设置RTC硬件时钟使用UTC"
+
+            # 验证当前时间
+            echo "[+] 时间同步配置完成，当前时间：$(date)"
+            # ---- 按文章配置systemd-timesyncd时间同步结束 ----
         else
-            echo "跳过修改时区和同步时间。"
+            echo "跳过时区修改和时间同步配置。"
         fi
 
         # 安装前说明
